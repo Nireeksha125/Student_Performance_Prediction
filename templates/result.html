@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>
+        Prediction Result
+    </title>
+
+</head>
+
+<body id="body"
+      style="
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      padding-top:120px;
+">
+
+    <!-- TOGGLE THEME BUTTON -->
+
+    <button onclick="toggleTheme()"
+            style="
+            position:absolute;
+            top:20px;
+            right:20px;
+            padding:12px 20px;
+            border:none;
+            background:black;
+            color:white;
+            border-radius:10px;
+            cursor:pointer;
+            font-size:16px;
+    ">
+
+        🌓
+
+    </button>
+
+    <!-- MAIN CARD -->
+
+    <div id="card"
+         style="
+         background:white;
+         width:50%;
+         margin:auto;
+         padding:40px;
+         border-radius:15px;
+         box-shadow:0px 0px 10px gray;
+    ">
+
+        <h1 style="
+            color:#4f46e5;
+            font-size:45px;
+        ">
+
+            Prediction Result
+
+        </h1>
+
+        <h2 style="margin-top:30px;">
+
+            Student Performance:
+
+        </h2>
+
+        <h1 style="
+            color:green;
+            font-size:50px;
+        ">
+
+            {{ prediction }}
+
+        </h1>
+
+        <!-- TRY AGAIN BUTTON -->
+
+        <a href="/">
+
+            <button style="
+                padding:15px 30px;
+                border:none;
+                background:#4f46e5;
+                color:white;
+                border-radius:10px;
+                font-size:18px;
+                margin-top:20px;
+                cursor:pointer;
+            ">
+
+                Try Again
+
+            </button>
+
+        </a>
+
+        <br><br>
+
+        <!-- DASHBOARD BUTTON -->
+
+        <a href="/dashboard">
+
+            <button style="
+                padding:15px 30px;
+                border:none;
+                background:#10b981;
+                color:white;
+                border-radius:10px;
+                font-size:18px;
+                cursor:pointer;
+            ">
+
+                View Dashboard
+
+            </button>
+
+        </a>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        // APPLY SAVED THEME
+
+        window.onload = function () {
+
+            let savedTheme = localStorage.getItem("theme");
+
+            if (savedTheme === "dark") {
+
+                enableDarkMode();
+
+            }
+
+        }
+
+        // TOGGLE THEME
+
+        function toggleTheme() {
+
+            let currentTheme = localStorage.getItem("theme");
+
+            if (currentTheme === "dark") {
+
+                localStorage.setItem("theme", "light");
+
+                enableLightMode();
+
+            }
+
+            else {
+
+                localStorage.setItem("theme", "dark");
+
+                enableDarkMode();
+
+            }
+
+        }
+
+        // DARK MODE
+
+        function enableDarkMode() {
+
+            document.getElementById("body").style.background = "black";
+
+            document.getElementById("body").style.color = "white";
+
+            document.getElementById("card").style.background = "#1f2937";
+
+        }
+
+        // LIGHT MODE
+
+        function enableLightMode() {
+
+            document.getElementById("body").style.background = "#f4f4f4";
+
+            document.getElementById("body").style.color = "black";
+
+            document.getElementById("card").style.background = "white";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

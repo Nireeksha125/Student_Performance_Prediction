@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>
+        Prediction Dashboard
+    </title>
+
+</head>
+
+<body id="body"
+      style="
+      font-family:Arial;
+      background:#f4f4f4;
+      padding:40px;
+">
+
+    <!-- TOGGLE THEME BUTTON -->
+
+    <button onclick="toggleTheme()"
+            style="
+            position:absolute;
+            top:20px;
+            right:20px;
+            padding:12px 20px;
+            border:none;
+            background:black;
+            color:white;
+            border-radius:10px;
+            cursor:pointer;
+            font-size:16px;
+    ">
+
+        🌓
+
+    </button>
+
+    <!-- MAIN CARD -->
+
+    <div id="card"
+         style="
+         padding:30px;
+         border-radius:15px;
+    ">
+
+        <h1 style="
+            text-align:center;
+            color:#4f46e5;
+            margin-bottom:30px;
+            font-size:50px;
+        ">
+
+            Prediction History Dashboard
+
+        </h1>
+
+        <!-- FILTER BUTTONS -->
+
+        <div style="
+            text-align:center;
+            margin-bottom:30px;
+        ">
+
+            <a href="/dashboard">
+
+                <button style="
+                    background:#4f46e5;
+                    color:white;
+                    border:none;
+                    padding:12px 20px;
+                    border-radius:8px;
+                    margin:5px;
+                    cursor:pointer;
+                ">
+
+                    All
+
+                </button>
+
+            </a>
+
+            <a href="/dashboard?filter=Good">
+
+                <button style="
+                    background:#10b981;
+                    color:white;
+                    border:none;
+                    padding:12px 20px;
+                    border-radius:8px;
+                    margin:5px;
+                    cursor:pointer;
+                ">
+
+                    Good
+
+                </button>
+
+            </a>
+
+            <a href="/dashboard?filter=Average">
+
+                <button style="
+                    background:#f59e0b;
+                    color:white;
+                    border:none;
+                    padding:12px 20px;
+                    border-radius:8px;
+                    margin:5px;
+                    cursor:pointer;
+                ">
+
+                    Average
+
+                </button>
+
+            </a>
+
+            <a href="/dashboard?filter=Poor">
+
+                <button style="
+                    background:red;
+                    color:white;
+                    border:none;
+                    padding:12px 20px;
+                    border-radius:8px;
+                    margin:5px;
+                    cursor:pointer;
+                ">
+
+                    Poor
+
+                </button>
+
+            </a>
+
+        </div>
+
+        <!-- TABLE -->
+
+        <table border="1"
+               cellpadding="15"
+               cellspacing="0"
+               id="table"
+               style="
+               margin:auto;
+               background:white;
+               border-collapse:collapse;
+               width:95%;
+               text-align:center;
+               color:black;
+        ">
+
+            <tr style="
+                background:#4f46e5;
+                color:white;
+            ">
+
+                <th>ID</th>
+                <th>Math</th>
+                <th>Reading</th>
+                <th>Writing</th>
+                <th>Prediction</th>
+                <th>Delete</th>
+                <th>Edit</th>
+
+            </tr>
+
+            {% for data in predictions %}
+
+            <tr>
+
+                <td>{{ data.id }}</td>
+
+                <td>{{ data.math }}</td>
+
+                <td>{{ data.reading }}</td>
+
+                <td>{{ data.writing }}</td>
+
+                <td>{{ data.result }}</td>
+
+                <!-- DELETE BUTTON -->
+
+                <td>
+
+                    <a href="/delete/{{ data.id }}">
+
+                        <button style="
+                            background:red;
+                            color:white;
+                            border:none;
+                            padding:8px 15px;
+                            border-radius:5px;
+                            cursor:pointer;
+                        ">
+
+                            Delete
+
+                        </button>
+
+                    </a>
+
+                </td>
+
+                <!-- EDIT BUTTON -->
+
+                <td>
+
+                    <a href="/edit/{{ data.id }}">
+
+                        <button style="
+                            background:#3b82f6;
+                            color:white;
+                            border:none;
+                            padding:8px 15px;
+                            border-radius:5px;
+                            cursor:pointer;
+                        ">
+
+                            Edit
+
+                        </button>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+        <br><br>
+
+        <!-- BACK BUTTON -->
+
+        <div style="text-align:center;">
+
+            <a href="/">
+
+                <button style="
+                    padding:15px 30px;
+                    border:none;
+                    background:#10b981;
+                    color:white;
+                    border-radius:10px;
+                    font-size:18px;
+                    cursor:pointer;
+                ">
+
+                    Back To Home
+
+                </button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        // APPLY SAVED THEME
+
+        window.onload = function () {
+
+            let savedTheme = localStorage.getItem("theme");
+
+            if (savedTheme === "dark") {
+
+                enableDarkMode();
+
+            }
+
+        }
+
+        // TOGGLE THEME
+
+        function toggleTheme() {
+
+            let currentTheme = localStorage.getItem("theme");
+
+            if (currentTheme === "dark") {
+
+                localStorage.setItem("theme", "light");
+
+                enableLightMode();
+
+            }
+
+            else {
+
+                localStorage.setItem("theme", "dark");
+
+                enableDarkMode();
+
+            }
+
+        }
+
+        // DARK MODE
+
+        function enableDarkMode() {
+
+            document.getElementById("body").style.background = "black";
+
+            document.getElementById("body").style.color = "white";
+
+            document.getElementById("card").style.background = "#1f2937";
+
+            document.getElementById("table").style.background = "#374151";
+
+            document.getElementById("table").style.color = "white";
+
+        }
+
+        // LIGHT MODE
+
+        function enableLightMode() {
+
+            document.getElementById("body").style.background = "#f4f4f4";
+
+            document.getElementById("body").style.color = "black";
+
+            document.getElementById("card").style.background = "white";
+
+            document.getElementById("table").style.background = "white";
+
+            document.getElementById("table").style.color = "black";
+
+        }
+
+    </script>
+
+</body>
+
+</html>
